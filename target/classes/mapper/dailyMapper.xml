@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Daily.dao.DailyMapper">
+    <insert id="save_fee" parameterType="daily">
+        insert into daily_fee values(#{id},#{name},#{breakfast},#{lunch},#{dinner},#{other},#{sum_fee},#{date_time})
+    </insert>
+    <select id="findOne" parameterType="String" resultType="daily">
+        select * from daily_fee where name = #{name}
+    </select>
+    <select id="fee_sum" parameterType="String" resultType="java.lang.Double">
+        select sum(sum_fee) from daily_fee where name = #{name}
+    </select>
+    <select id="fee_sum_month" parameterType="dateTime" resultType="double">
+        select sum(sum_fee) from daily_fee where name=#{name} and date_time between #{month_start} and #{month_end}
+    </select>
+</mapper>
